@@ -1,0 +1,41 @@
+﻿<Window x:Class="PushGit.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PushGit"
+        mc:Ignorable="d"
+        
+        Title="PushGit" Height="500" Width="800" ResizeMode="CanMinimize" Background="#FF1F1F1F" Icon="/pushgit_logo (1) (1).png">
+
+
+    <Grid Background="#FF1F1F1F">
+
+        <Button Content="Push" HorizontalAlignment="Left" Margin="586,154,0,0" VerticalAlignment="Top" Click="Push" Height="101" Width="160" RenderTransformOrigin="0.556,0.941" Background="#FF262626" Foreground="#FFD6D6D6" FontSize="22" Cursor="Hand"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="46,302,0,0" TextWrapping="Wrap" Background="#FF262626" VerticalAlignment="Top" Width="700" Height="151" FontSize="14" UndoLimit="500" Cursor="IBeam" TextAlignment="Center" BorderBrush="#FF3D3D3D" BorderThickness="3,3,3,3" Foreground="#FFD6D6D6" SelectionTextBrush="#FF0404CA" CaretBrush="#000000"/>
+        <TextBox x:Name="inputUrl" HorizontalAlignment="Left" Margin="151,264,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="595" Cursor="IBeam" Height="25" Background="#FF262626" BorderBrush="#FF3D3D3D" BorderThickness="3,3,3,3" Foreground="#FFD6D6D6"/>
+        <Label Content="Repo's URL" HorizontalAlignment="Left" Margin="42,264,0,0" VerticalAlignment="Top" Height="25" Width="100" RenderTransformOrigin="0.811,0.256" Foreground="#FFD6D6D6" FontSize="14" Padding="5,0,0,0" VerticalContentAlignment="Center"/>
+        <Rectangle x:Name="toggleButtonForce" HorizontalAlignment="Left" Height="45" Margin="723,27,0,0" Stroke="#FF464646" VerticalAlignment="Top" Width="45" MouseDown="tbForce_click" RenderTransformOrigin="0.489,0.445" StrokeThickness="3" OpacityMask="White" MouseEnter="tbHoverE" MouseLeave="tbHoverE" Fill="#FF1F1F1F" Cursor="Hand"/>
+        <Label Content="Force Mode (-f ) push" HorizontalAlignment="Left" Margin="563,27,0,0" VerticalAlignment="Top" Foreground="#FFD6D6D6" Padding="0,0,0,0" VerticalContentAlignment="Center" FontSize="16" Height="45" Width="155"/>
+        <TextBox x:Name="inpuBranchName" HorizontalAlignment="Left" Margin="151,20,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="430" Cursor="IBeam" Height="25" Background="#FF262626" BorderBrush="#FF3D3D3D" BorderThickness="3,3,3,3" Foreground="#FFD6D6D6"/>
+        <Label Content="Branch" HorizontalAlignment="Left" Margin="42,0,0,0" VerticalAlignment="Center" Height="25" Width="100" RenderTransformOrigin="0.811,0.256" Foreground="#FFD6D6D6" FontSize="14" Padding="5,0,0,0" VerticalContentAlignment="Center"/>
+        <Rectangle x:Name="pickFolder" HorizontalAlignment="Left" Height="51" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="50" MouseEnter="PickFolderHoverE" MouseLeave="PickFolderHoverE" MouseDown="SelectFolder" StrokeThickness="0" Cursor="ArrowCD">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="/folder_icon (1).png"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle x:Name="toggleButtonAsync" HorizontalAlignment="Left" Height="45" Margin="497,27,0,0" Stroke="#FF464646" VerticalAlignment="Top" Width="46" MouseDown="tbAsync_click" RenderTransformOrigin="0.489,0.445" StrokeThickness="3" OpacityMask="White" MouseEnter="tbHoverE" MouseLeave="tbHoverE" Cursor="Hand">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="/arr48.png"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Label Content="Async push" HorizontalAlignment="Left" Margin="394,27,0,0" VerticalAlignment="Top" Foreground="#FFD6D6D6" Padding="0,0,0,0" VerticalContentAlignment="Center" FontSize="16" Height="45" Width="92"/>
+        <Rectangle x:Name="toggleButtonAutoPush" HorizontalAlignment="Left" Height="45" Margin="333,27,0,0" Stroke="#FF464646" VerticalAlignment="Top" Width="45" MouseDown="autoPush_click" RenderTransformOrigin="0.489,0.445" StrokeThickness="3" OpacityMask="White" MouseEnter="tbHoverE" MouseLeave="tbHoverE" Fill="#FF1F1F1F" Cursor="Hand"/>
+        <TextBlock HorizontalAlignment="Left" Margin="173,27,0,0" TextWrapping="Wrap" Text="Auto Push on           Folder Changes" VerticalAlignment="Top" Height="45" Width="149" Foreground="#FFD5D5D5" FontSize="16"/>
+        <TextBox x:Name="outputFolderTextBox" HorizontalAlignment="Left" Margin="151,154,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="430" Cursor="IBeam" Height="25" Background="#FF262626" BorderBrush="#FF3D3D3D" BorderThickness="3,3,3,3" Foreground="#FFD6D6D6"/>
+        <Label Content="Your Folder" HorizontalAlignment="Left" Margin="46,154,0,0" VerticalAlignment="Top" Height="25" Width="100" RenderTransformOrigin="0.811,0.256" Foreground="#FFD6D6D6" FontSize="14" Padding="0,0,0,0" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="inputCommit" HorizontalAlignment="Left" Margin="151,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="430" Cursor="IBeam" Height="25" Background="#FF262626" BorderBrush="#FF3D3D3D" BorderThickness="3,3,3,3" Foreground="#FFD6D6D6"/>
+        <Label Content="Commit" HorizontalAlignment="Left" Margin="46,192,0,0" VerticalAlignment="Top" Height="25" Width="100" RenderTransformOrigin="0.811,0.256" Foreground="#FFD6D6D6" FontSize="14" Padding="0,0,0,0" VerticalContentAlignment="Center"/>
+
+    </Grid>
+</Window>
