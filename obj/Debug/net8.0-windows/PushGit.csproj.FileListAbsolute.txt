@@ -120,3 +120,4 @@ D:\C#\PushGit\PushGit\PushGit\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\M
 D:\C#\PushGit\PushGit\PushGit\bin\Debug\net8.0-windows\KHA331.dll
 D:\C#\PushGit\PushGit\PushGit\bin\Debug\net8.0-windows\KHA331.pdb
 D:\C#\PushGit\PushGit\PushGit\obj\Debug\net8.0-windows\PushGit_Content.g.cs
+D:\C#\PushGit\PushGit\PushGit\obj\Debug\net8.0-windows\PushGit.sourcelink.json

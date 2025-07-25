@@ -120,3 +120,4 @@ D:\C#\PushGit\PushGit\PushGit\obj\Release\net8.0-windows\refint\PushGit.dll
 D:\C#\PushGit\PushGit\PushGit\obj\Release\net8.0-windows\PushGit.genruntimeconfig.cache
 D:\C#\PushGit\PushGit\PushGit\obj\Release\net8.0-windows\ref\PushGit.dll
 D:\C#\PushGit\PushGit\PushGit\obj\Release\net8.0-windows\PushGit_Content.g.cs
+D:\C#\PushGit\PushGit\PushGit\obj\Release\net8.0-windows\PushGit.sourcelink.json

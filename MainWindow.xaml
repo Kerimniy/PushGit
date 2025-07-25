@@ -18,7 +18,7 @@
         <Rectangle x:Name="toggleButtonForce" HorizontalAlignment="Left" Height="45" Margin="723,27,0,0" Stroke="#FF464646" VerticalAlignment="Top" Width="45" MouseDown="tbForce_click" RenderTransformOrigin="0.489,0.445" StrokeThickness="3" OpacityMask="White" MouseEnter="tbHoverE" MouseLeave="tbHoverE" Fill="#FF1F1F1F" Cursor="Hand"/>
         <Label Content="Force Mode (-f ) push" HorizontalAlignment="Left" Margin="563,27,0,0" VerticalAlignment="Top" Foreground="#FFD6D6D6" Padding="0,0,0,0" VerticalContentAlignment="Center" FontSize="16" Height="45" Width="155"/>
         <TextBox x:Name="inpuBranchName" HorizontalAlignment="Left" Margin="151,20,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="430" Cursor="IBeam" Height="25" Background="#FF262626" BorderBrush="#FF3D3D3D" BorderThickness="3,3,3,3" Foreground="#FFD6D6D6"/>
-        <Label Content="Branch" HorizontalAlignment="Left" Margin="42,0,0,0" VerticalAlignment="Center" Height="25" Width="100" RenderTransformOrigin="0.811,0.256" Foreground="#FFD6D6D6" FontSize="14" Padding="5,0,0,0" VerticalContentAlignment="Center"/>
+        <Label Content="Branch" HorizontalAlignment="Left" Margin="42,227,0,0" VerticalAlignment="Top" Height="25" Width="100" RenderTransformOrigin="0.811,0.256" Foreground="#FFD6D6D6" FontSize="14" Padding="5,0,0,0" VerticalContentAlignment="Center"/>
         <Rectangle x:Name="pickFolder" HorizontalAlignment="Left" Height="51" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="50" MouseEnter="PickFolderHoverE" MouseLeave="PickFolderHoverE" MouseDown="SelectFolder" StrokeThickness="0" Cursor="ArrowCD">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="/folder_icon (1).png"/>
