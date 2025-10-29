@@ -1,0 +1,295 @@
+// main.slint
+import { AboutSlint, LineEdit, Button, VerticalBox, ListView, ScrollView, CheckBox } from "std-widgets.slint";
+
+export component App inherits Window {
+    width: 700px; height: 500px;
+    title: "Pushgit";
+    icon: @image-url("pushgit2x32.png");
+
+
+    callback select_folder();
+
+    callback forcemode_changed(val : bool);
+    callback use_custom_changed(val : bool);
+
+    callback change_url(val : string);
+    callback change_commit(val : string);
+    callback change_branch(val : string);
+    callback change_path(val : string);
+
+    callback show_about();
+
+    callback push();
+    callback reset_template();
+
+    in-out property <string> path;
+
+    in-out property <string> url: "";
+    in-out property <string> commit: "initial commit";
+    in-out property <string> branch: "main";
+    in-out property <string> logs: "";
+
+    in-out property <bool> is_forcemode: false;
+    in-out property <bool> is_custom_config: false;
+
+    HorizontalLayout {
+        alignment: LayoutAlignment.start;
+        spacing: 20px;
+
+        VerticalBox {
+            padding: 20px;
+            spacing: 15px;
+            y: 0px;
+            width: 550px;
+
+            alignment: LayoutAlignment.start;
+            height: 500px;
+
+            Text {
+                stroke: #c3c3c31a;
+                stroke-style: TextStrokeStyle.outside;
+                stroke-width: 1px;
+                text: "PushGit 2.0";
+                vertical-alignment: TextVerticalAlignment.top;
+                height: 50px;
+                horizontal-alignment: center;
+                font-size: 25px;
+                padding-bottom: 135px;
+                padding: 35px;
+
+            }
+
+
+            Rectangle {
+
+                width: 550px; height: 40px;
+                background: Colors.black;
+                border-radius: 5px;
+                clip: true;
+
+                LineEdit  {
+                    width: 100%; height: 100%;
+                    placeholder-text: "Repo's URL";
+                    text <=> url;
+                    changed text => { change_url(self.text)}
+                    horizontal-alignment: left;
+                }
+            }
+            Rectangle {
+                        width: 550px; height: 40px;
+                        background: Colors.black;
+                        border-radius: 5px;
+                        clip: true;
+
+                        LineEdit  {
+                            width: 100%; height: 100%;
+                            placeholder-text: "Branch";
+                            text <=> branch;
+                            changed text => { change_branch(self.text)}
+
+                            horizontal-alignment: left;
+                        }
+            }
+            Rectangle {
+                        width: 550px; height: 40px;
+                        background: Colors.black;
+                        border-radius: 5px;
+                        clip: true;
+
+                        LineEdit  {
+                            width: 100%; height: 100%;
+                            placeholder-text: "Commit";
+                            text <=> commit;
+                            changed text => { change_commit(self.text)}
+                            horizontal-alignment: left;
+                        }
+                    }
+            HorizontalLayout {
+                alignment: LayoutAlignment.start;
+                width: 550px;
+                Rectangle {
+                            width: 517px; height: 40px;
+                            background: Colors.black;
+                            border-radius: 5px;
+                            clip: true;
+
+                            LineEdit  {
+                                width: 100%; height: 100%;
+                                placeholder-text: "Folder";
+                                text <=> path;
+                                changed text => { change_path(self.text)}
+                                horizontal-alignment: left;
+                            }
+                        }
+                    Button {
+                        colorize-icon: false;
+                        text: "";
+                        clicked => {root.select_folder()}
+                        icon: @image-url("folder.png");
+
+                    }
+                }
+
+
+        Text {
+                stroke: #c3c3c31a;
+                stroke-style: TextStrokeStyle.outside;
+                stroke-width: 1px;
+                text: "Logs";
+                vertical-alignment: TextVerticalAlignment.top;
+                height: 20px;
+                horizontal-alignment: center;
+                font-size: 15px;
+
+            }
+
+
+
+            Rectangle {
+                width: 550px;
+                height: 130px;
+                border-color: #525252;
+                border-width: 1px;
+                border-radius: 7.5px;
+            ScrollView {
+                  width: 100%;
+                  height: 100%;
+
+                  VerticalLayout {
+                      alignment: LayoutAlignment.stretch;
+                      spacing: 4px;
+                      width: 100%;
+                      y: 0px;
+                      x: 0px;
+
+                        padding-left: 30px;
+                      Text {
+                      width: 500px;
+
+                          text <=> logs;
+
+                          color: white;
+                          wrap: word-wrap;
+                      }
+                  }
+              }
+            }
+        }
+
+        VerticalBox {
+                    padding: 20px;
+                    spacing: 25px;
+                    y: 70px;
+                    width: 130px;
+
+                    alignment: LayoutAlignment.start;
+                    height: 430px;
+                    Button {
+                        text: "About";
+                        clicked => {root.show_about()}
+                    }
+                    Button {
+                        text: "Reset \n template";
+                        clicked => {root.reset_template()}
+                    }
+                    CheckBox {
+                        height: 15px;
+                        text: "ForceMode";
+                        checked <=> root.is_forcemode;
+                        changed checked => {root.forcemode_changed(self.checked)}
+
+                    }
+                    CheckBox {
+                        height: 30px;
+                        text: "Custom \n config";
+                        checked <=> root.is_custom_config;
+                        changed checked => {root.use_custom_changed(self.checked)}
+
+                    }
+                    Button {
+                        height: 150px;
+                        text: "Push";
+                        clicked => {root.push()}
+                    }
+                }
+
+
+    }
+}
+
+
+export component AboutWindow inherits Window {
+    icon: @image-url("pushgit2x32.png");
+
+    height: 250px;
+    width: 200px;
+    no-frame: false;
+    title: "About Program";
+
+    callback hide_about();
+
+    VerticalLayout {
+        spacing: 10px;
+        visible: true;
+        alignment: LayoutAlignment.stretch;
+        Text {
+        horizontal-alignment: TextHorizontalAlignment.center;
+            text: "About PushGit";
+            vertical-alignment: TextVerticalAlignment.center;
+            font-size: 15px;
+            height: 40px;
+        }
+
+        Text {
+            horizontal-alignment: TextHorizontalAlignment.left;
+            text: "      App version:  0.2.0.0";
+            vertical-alignment: TextVerticalAlignment.center;
+            font-size: 12px;
+            height: 20px;
+        }
+        Text {
+            horizontal-alignment: TextHorizontalAlignment.left;
+            opacity: 1;
+            text: "      Rust version:  1.90.0";
+            vertical-alignment: TextVerticalAlignment.center;
+            font-size: 12px;
+            height: 20px;
+        }
+        Text {
+            horizontal-alignment: TextHorizontalAlignment.left;
+            text: "      Slint version:  1.14.1";
+            vertical-alignment: TextVerticalAlignment.top;
+            font-size: 12px;
+            height: 20px;
+        }
+        Text {
+            horizontal-alignment: TextHorizontalAlignment.left;
+            text: "      License:  GNU GPLv3";
+            vertical-alignment: TextVerticalAlignment.top;
+            font-size: 12px;
+            height: 27px;
+        }
+        HorizontalLayout {
+        alignment: center;
+            Button {
+
+                checked: false;
+                colorize-icon: false;
+                height: 25px;
+                primary: false;
+                text: "Close";
+                width: 160px;
+                clicked => {root.hide_about()}
+
+            }
+
+
+        }
+        Text {
+            text: "Made with Slint \n";
+            vertical-alignment: TextVerticalAlignment.bottom;
+            horizontal-alignment: TextHorizontalAlignment.center;
+        }
+
+    }
+}

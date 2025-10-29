@@ -1,0 +1,71 @@
+import { Button } from "std-widgets.slint";
+
+export component AboutWindow inherits Window {
+    height: 250px;
+    width: 200px;
+    no-frame: false;
+    title: "About Program";
+    VerticalLayout {
+        spacing: 10px;
+        visible: true;
+        alignment: LayoutAlignment.stretch;
+        Text {
+        horizontal-alignment: TextHorizontalAlignment.center;
+            text: "About PushGit";
+            vertical-alignment: TextVerticalAlignment.center;
+            font-size: 15px;
+            height: 40px;
+        }
+
+        Text {
+            horizontal-alignment: TextHorizontalAlignment.left;
+            text: "      App version:  0.2.0.0";
+            vertical-alignment: TextVerticalAlignment.center;
+            font-size: 12px;
+            height: 20px;
+        }
+        Text {
+            horizontal-alignment: TextHorizontalAlignment.left;
+            opacity: 1;
+            text: "      Rust version:  1.90.0";
+            vertical-alignment: TextVerticalAlignment.center;
+            font-size: 12px;
+            height: 20px;
+        }
+        Text {
+            horizontal-alignment: TextHorizontalAlignment.left;
+            text: "      Slint version:  1.14.1";
+            vertical-alignment: TextVerticalAlignment.top;
+            font-size: 12px;
+            height: 20px;
+        }
+        Text {
+            horizontal-alignment: TextHorizontalAlignment.left;
+            text: "      License:  GNU GPLv3";
+            vertical-alignment: TextVerticalAlignment.top;
+            font-size: 12px;
+            height: 27px;
+        }
+        HorizontalLayout {
+        alignment: center;
+            Button {
+
+                checked: false;
+                colorize-icon: false;
+                height: 25px;
+                primary: false;
+                text: "Close";
+                width: 160px;
+
+            }
+
+
+        }
+        Text {
+            text: "Made with Slint \n";
+            vertical-alignment: TextVerticalAlignment.bottom;
+            horizontal-alignment: TextHorizontalAlignment.center;
+        }
+
+    }
+}

@@ -1,0 +1,13 @@
+[
+  "cd [] \ngit init\ngit add . \ngit commit -m '[]' \ngit config --global --unset url.gitgithub.com:.insteadOf \ngit remote rm origin \ngit remote add origin []  \ngit branch -M []  \ngit fetch origin []  \ngit pull --rebase origin []  \ngit push origin [] [] ",
+  "0",
+  "0",
+  "",
+  "commit0",
+  "",
+  "main",
+  "main",
+  "main",
+  "main",
+  ""
+]
