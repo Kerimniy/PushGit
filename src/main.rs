@@ -12,6 +12,17 @@ use std::os::windows::process::CommandExt;
 
 slint::include_modules!();
 // Base template
+
+/*
+
+config structure:
+	1 git commands, \n - new line
+	2 using force mode to push
+	3 using custom config. if true (1) using raw first row
+	4-10  values for format (n [] will be replaced by n var)
+
+*/
+
 const  BASE_TEMPLATE: &str = r##"
     [
 
@@ -29,17 +40,25 @@ const  BASE_TEMPLATE: &str = r##"
 
 ]
     "##;
+
+
+
 fn read_file_content_as_string(path: &str) -> String {
 
+	
     let str_content =match fs::read_to_string(path){
         Ok(string_content) => string_content,
         Err(_) => BASE_TEMPLATE.to_string()
     };
 
+	
     str_content
 }
 
+
+
 fn execute_command(s: &String) -> String{
+	
 	//Windows shell
     #[cfg(target_os = "windows")]
     {
@@ -77,6 +96,8 @@ fn execute_command(s: &String) -> String{
 }
 
 
+
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
 //create window
     let app = App::new().unwrap();
@@ -84,10 +105,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     about_window.hide();
     let weak_about = about_window.as_weak();
 
+	
     let read = read_file_content_as_string(&"config.json");
 
+	
     let json_data: Result<Vec<String>, serde_json::Error> = serde_json::from_str(&read);
 
+	
     let mut json_data = match json_data {
         Ok(v) => v,
         Err(_) =>serde_json::from_str::<Vec<String>>(BASE_TEMPLATE).unwrap()
@@ -110,6 +134,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     });
 //load data
 
+	
     app.set_is_forcemode(json_data[1].clone().parse::<usize>().unwrap() !=0);
     app.set_is_custom_config(json_data[2].clone().parse::<usize>().unwrap() !=0);
     if !app.get_is_custom_config() {
@@ -119,31 +144,48 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         app.set_branch(json_data[6].clone().into());
     }
 
+	
 //slint callbacks
     let weak_app = app.as_weak().unwrap();
     app.on_select_folder(move || {let _path: SharedString = pick_folder(&weak_app.get_path());  weak_app.set_path(_path.clone());});
 
+
+	
     let weak_app = app.as_weak().unwrap();
     app.on_forcemode_changed(move |val| {weak_app.set_is_forcemode(val)});
 
+
+	
     let weak_app = app.as_weak().unwrap();
     app.on_use_custom_changed(move |val| {weak_app.set_is_custom_config(val)});
 
+
+	
     let weak_app = app.as_weak().unwrap();
     app.on_change_branch(move |string| { weak_app.set_branch(string);});
 
+
+	
     let weak_app = app.as_weak().unwrap();
     app.on_change_commit(move |string| { weak_app.set_commit(string);});
 
+
+	
     let weak_app = app.as_weak().unwrap();
     app.on_change_url(move |string| { weak_app.set_url(string);});
 
+
+	
     let weak_app = app.as_weak().unwrap();
     app.on_change_path(move |string| { weak_app.set_path(string);});
 
 
+
+	
     let weak_app = app.as_weak().unwrap();
 
+
+	
     app.on_push(move || {
 
         let weak_app1 = weak_app.as_weak();
@@ -174,6 +216,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 json_data[10]="-f".to_string();
             }
         }
+
+		
         let  base_command = json_data[0].clone();
         let format_count: usize = json_data[0].matches("[]").count();
         for i in 3..=format_count+2{
@@ -202,6 +246,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
         });
 
+		
 
         json_data[0] = base_command;
         let json_string = serde_json::to_string_pretty(&json_data).unwrap();
@@ -213,6 +258,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     });
 
+
+
+//saving config on exet
     let weak_app = app.as_weak().unwrap();
     app.window().on_close_requested(move || {
         let read = read_file_content_as_string(&"config.json");
@@ -223,8 +271,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             Ok(v) => v,
             Err(_) => Vec::new()
         };
-
-
 
 
 
@@ -245,18 +291,21 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
 
 
+			
             let json_string = serde_json::to_string_pretty(&json_data).unwrap();
             let mut file = std::fs::File::create("config.json").unwrap();
 
             file.write(json_string.as_bytes());
         }
+		
         CloseRequestResponse::HideWindow
 
+		
     });
 
 
 
-
+//callback reset template rewrite your config.json to defoult
     app.on_reset_template(move || {
 
         let mut file = std::fs::File::create("config.json").unwrap();
@@ -275,6 +324,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 		
 }
+
+		
+		//Open File dialog
 
 fn pick_folder(s : &SharedString) -> SharedString{
     let fd = rfd::FileDialog::new().set_title("Select Directory").pick_folder();
