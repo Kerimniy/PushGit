@@ -11,7 +11,7 @@ use std::io::Write;
 use std::os::windows::process::CommandExt;
 
 slint::include_modules!();
-
+// Base template
 const  BASE_TEMPLATE: &str = r##"
     [
 
@@ -40,6 +40,7 @@ fn read_file_content_as_string(path: &str) -> String {
 }
 
 fn execute_command(s: &String) -> String{
+	//Windows shell
     #[cfg(target_os = "windows")]
     {
         let output = Command::new("powershell")
@@ -57,6 +58,7 @@ fn execute_command(s: &String) -> String{
 
     #[cfg(not(target_os = "windows"))]
     {
+		//Unix-like os shell
         let output = Command::new("sh")
             .arg("-c")
             .arg(s)
@@ -76,7 +78,7 @@ fn execute_command(s: &String) -> String{
 
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-
+//create window
     let app = App::new().unwrap();
     let about_window = AboutWindow::new()?;
     about_window.hide();
@@ -106,7 +108,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
         }
     });
-
+//load data
 
     app.set_is_forcemode(json_data[1].clone().parse::<usize>().unwrap() !=0);
     app.set_is_custom_config(json_data[2].clone().parse::<usize>().unwrap() !=0);
@@ -117,7 +119,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         app.set_branch(json_data[6].clone().into());
     }
 
-
+//slint callbacks
     let weak_app = app.as_weak().unwrap();
     app.on_select_folder(move || {let _path: SharedString = pick_folder(&weak_app.get_path());  weak_app.set_path(_path.clone());});
 
@@ -155,7 +157,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             Err(_) => serde_json::from_str::<Vec<String>>(BASE_TEMPLATE).unwrap()
         };
         weak_app.set_logs(format!("{} \n Attempting to push... \n",weak_app.get_logs().to_string()).into());
-
+// format template
         json_data[1] = (weak_app.get_is_forcemode() as usize).to_string();
         json_data[2] = (weak_app.get_is_custom_config() as usize).to_string();
         if !weak_app.get_is_custom_config() {
@@ -186,6 +188,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         let command = json_data[0].clone();
         let logsimm = weak_app.get_logs();
+		//executing commands in other process
         thread::spawn(move || {
             let mut logs = logsimm.clone();
             let result = execute_command(&command);
@@ -202,7 +205,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         json_data[0] = base_command;
         let json_string = serde_json::to_string_pretty(&json_data).unwrap();
-
+		saving cconfig
         let mut file = std::fs::File::create("config.json").unwrap();
 
         file.write(json_string.as_bytes());
@@ -252,6 +255,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     });
 
 
+
+
     app.on_reset_template(move || {
 
         let mut file = std::fs::File::create("config.json").unwrap();
@@ -261,10 +266,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     });
 
 
+
+
     app.run()?;
     Ok(())
 
 
+
+		
 }
 
 fn pick_folder(s : &SharedString) -> SharedString{
@@ -277,5 +286,7 @@ fn pick_folder(s : &SharedString) -> SharedString{
         return s.clone();
     }
 
+
+		
 
 }
